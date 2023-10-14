@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
-    private Rigidbody rb;
+    private Rigidbody2D rb;
 
     [SerializeField] private float playerSpeed;
     [SerializeField] private Joystick_Movement joystick;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
