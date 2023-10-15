@@ -6,11 +6,14 @@ TagManager:
   tags:
   - NextStage
   - Enemy
+  - PlayerFeet
+  - HomingBullet
+  - NormalBullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemies
   - Water
   - UI
   - 

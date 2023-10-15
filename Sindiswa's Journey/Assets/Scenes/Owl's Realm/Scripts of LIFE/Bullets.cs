@@ -4,38 +4,54 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
+    [SerializeField] private float followSpeed;
+    [SerializeField] private float bulletLife;
     [SerializeField] private int bulletDamage;
     [SerializeField] private int damagePoint;
+    private GameObject player;
 
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("PlayerFeet");
+    }
+    private void Update()
+    {
+        if (this.gameObject.CompareTag("HomingBullet"))
+        {
+            BulletType(1);
+        }
+
+        else
+        {
+            Destroy(gameObject, bulletLife);
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.GetComponent<Health>() != null) //accounts for player's Bullet
+        if (collision.gameObject.GetComponent<Health>() != null) //if what the bullet touches has health, deal damage to it
         {
-            print("damaging enemy");
-            //damage the enemy gameObject if it has the Health script
-            Health damageEnemy = collision.gameObject.GetComponent<Health>();
-            damageEnemy.Damage(bulletDamage);
+            Health dealDamage = collision.gameObject.GetComponent<Health>();
+            dealDamage.Damage(bulletDamage);
 
-            //increase the player's points everytime the shoot at an enemy
-            GameCurrency addPoint = FindObjectOfType<GameCurrency>();
-            addPoint.EarnPoints(damagePoint);
-            collision.gameObject.GetComponent<Health>();
+            //increase the player's points when their bullet hits an enemy
+            if(collision.gameObject.layer == 3)
+            {
+                GameCurrency addPoint = FindObjectOfType<GameCurrency>();
+                addPoint.EarnPoints(damagePoint);
+            }
         }
+        Destroy(gameObject);
     }
 
     // types of bullets
-    private void HomingBullet()
+    private void BulletType(int bulletType)
     {
-
-    }
-
-    private void NormalBullet()
-    {
-
-    }
-
-    private void LaserBullet()
-    {
-
+        if (bulletType == 1) //homing bullet
+        {
+            print("homin on player");
+            Vector3 targetPos = player.transform.position;
+            float speed = followSpeed * Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, targetPos, speed);
+        }
     }
 }
