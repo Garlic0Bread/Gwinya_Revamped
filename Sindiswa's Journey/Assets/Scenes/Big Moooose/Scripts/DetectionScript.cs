@@ -8,7 +8,7 @@ public class DetectionScript : MonoBehaviour
     public float radius = 2.0f; // Adjust the radius as needed
     public LayerMask detectionLayer; // Set this in the Inspector to specify which layers the circle should detect
     public KeyCode damageKey = KeyCode.Space;
-    public float damageAmount = 10;
+    public float damageAmount;
 
     private void OnDrawGizmos()
     {
@@ -33,14 +33,9 @@ public class DetectionScript : MonoBehaviour
                     // Apply damage to the enemy
                     EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
                     if (enemyHealth != null)
-                    {
-                        float actualDamage = damageAmount;
-                        if (collider.gameObject != gameObject) // Ensure the damaged enemy itself is not affected
-                        {
-                            actualDamage /= 2.0f; // Half the damage for nearby enemies
-                        }
-                        enemyHealth.TakeDamage(damageAmount);
-                    }
+                    { 
+                        enemyHealth.TakeDamage(50);
+                    } 
                 }
             }
         }
