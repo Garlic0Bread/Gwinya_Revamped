@@ -16,13 +16,24 @@ public class Character_Controller : MonoBehaviour
     [SerializeField] private Transform playerGun; // Reference to the player's gun transform
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private GameObject bulletPrefab; // Prefab of the bullet to be spawned
+    [SerializeField] private GameObject kirin;
     [SerializeField] private Joystick_Movement joystick;
+
+    Vector2 mousePos;
+    public Camera cam;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
 
+    }
+    private void Update()
+    {
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition); //Big Mooos's code for making the character tunr and look in the direction they are moving in
+        Vector2 lookDir = joystick.joystick_Vector;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+        rb.rotation = angle;
+    }
     void PlayerMove()
     {
         if (joystick.joystick_Vector.y != 0)

@@ -4,73 +4,80 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    [SerializeField] private Collider2D colliderToIgnore;
     [SerializeField] private float followSpeed;
     [SerializeField] private float bulletLife;
     [SerializeField] private int bulletDamage;
     [SerializeField] private int damagePoint;
-    [SerializeField] private int bulletTypeNumber;
+    [SerializeField] private string bulletTypeString;
+    public float radius = 2.0f; // Adjust the radius as needed
+    public LayerMask detectionLayer; // Set this in the Inspector to specify which layers the circle should detect
 
-    public string currentBulletTag;
-    public bool normalBullet = true;
-    public int layerNumberToIgnore;
+    public bool kirinActive = false;
 
     private GameObject player;
+    [SerializeField] private GameObject kirin;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("PlayerFeet");
-        colliderToIgnore = gameObject.GetComponent<Collider2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     private void Update()
     {
-        BulletType(bulletTypeNumber);
-
         Destroy(gameObject, bulletLife);
+    }
+    private void FixedUpdate()
+    {
+        BulletType(bulletTypeString);
 
     }
 
-    // types of bullets
-    private void BulletType(int bulletType)
+    private void OnDrawGizmos()
     {
-        if (bulletType == 1) //normal bullet
+        // Draw the detection circle in the Scene view
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+    // types of bullets
+    private void BulletType(string bulletType)
+    {
+        if (bulletTypeString == "Homing Bullet") //homing bullet
         {
-            normalBullet = true;
-        }
-
-        else if (bulletType == 2) //homing bullet
-        {
-            print("homin on player");
-            normalBullet = false;
             Vector3 targetPos = player.transform.position;
             float speed = followSpeed * Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, targetPos, speed);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed);
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<Health>() != null && normalBullet == true) //if what the bullet touches has health, deal damage to it
+        else if(bulletTypeString == "Kirin")
         {
-            if (this.gameObject.CompareTag(currentBulletTag) && collision.gameObject.layer == layerNumberToIgnore)
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, detectionLayer);
+            foreach (Collider2D col in colliders)
             {
-                print("jjj");
-                this.gameObject.GetComponent<Collider2D>().isTrigger = true;
-            }
-            else
-            {
-                Health dealDamage = collision.gameObject.GetComponent<Health>();
-                dealDamage.Damage(bulletDamage);
-                Destroy(gameObject);
-            
-                if (collision.gameObject.layer == 3) //increase the player's points when their bullet hits an enemy
-                {
-                    GameCurrency addPoint = FindObjectOfType<GameCurrency>();
-                    addPoint.EarnPoints(damagePoint);
-                }
+                print("kirin");
+                Destroy(gameObject, 2);
+
+                col.GetComponent<Health>().Damage(bulletDamage);
+                Instantiate(kirin, col.transform.position, Quaternion.identity);
             }
         }
     }
-    
 
-}
+    private void OnCollisionEnter2D(Collision2D collider)
+    {
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Health dealDamage = collision.GetComponent<Health>();
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, detectionLayer);
+
+        if (collision.gameObject.layer != 6 && dealDamage != null)
+        {
+            dealDamage.Damage(bulletDamage);
+            Destroy(gameObject);
+
+            GameCurrency addPoint = FindObjectOfType<GameCurrency>();
+            addPoint.EarnPoints(damagePoint);
+            
+        }
+    }
+}  

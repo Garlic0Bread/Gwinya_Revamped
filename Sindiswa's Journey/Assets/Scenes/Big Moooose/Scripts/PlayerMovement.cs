@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * runSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + runSpeed * Time.fixedDeltaTime * movement);
 
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;

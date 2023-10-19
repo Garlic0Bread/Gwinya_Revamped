@@ -16,9 +16,9 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (this.CompareTag("Player"))
+        //if (this.CompareTag("Player"))
         {
-            healthBar.fillAmount = health / 100f;
+            //healthBar.fillAmount = health / 100f;
         }
     }
     public void Damage(int amount)
