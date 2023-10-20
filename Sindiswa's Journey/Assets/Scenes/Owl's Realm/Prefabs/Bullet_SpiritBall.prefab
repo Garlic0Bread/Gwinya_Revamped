@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 0
-  bulletLife: 2
+  bulletLife: 0
   bulletSpeed: 20
   radius: 0
   bulletDamage: 15

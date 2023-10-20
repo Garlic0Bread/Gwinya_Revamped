@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int health = 100;
-    [SerializeField] private int maxhealth = 100;
+    [SerializeField] private float health = 100;
+    [SerializeField] private float maxhealth = 100;
     [SerializeField] private int tokolosh_Exp;
     [SerializeField] private int pinky_Exp;
 
@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
             //healthBar.fillAmount = health / 100f;
         }
     }
-    public void Damage(int amount)
+    public void Damage(float amount)
     {
         if (amount < 0)
         {

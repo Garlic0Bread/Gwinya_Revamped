@@ -7,10 +7,8 @@ public class Bullets : MonoBehaviour
     [SerializeField] private float followSpeed;
     [SerializeField] private float bulletLife;
     [SerializeField] private float bulletSpeed = 10f; 
-
     [SerializeField] private float radius = 0; 
-
-    [SerializeField] private int bulletDamage;
+    [SerializeField] private float bulletDamage;
     [SerializeField] private int damagePoint;
 
     [SerializeField] private string bulletTypeString;
@@ -67,13 +65,14 @@ public class Bullets : MonoBehaviour
             Instantiate(Kirin_Lightning, collision.transform.position, Quaternion.identity);
             gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
             kirinActive = false;
             radius = 1.5f;
         }
         if (collision.gameObject.layer != 6 && dealDamage != null)
         {
             dealDamage.Damage(bulletDamage);
-            Destroy(gameObject); //add time to make a bullet that goes through enemies
+            Destroy(gameObject, bulletLife); //add time to make a bullet that goes through enemies
 
             GameCurrency addPoint = FindObjectOfType<GameCurrency>();
             addPoint.EarnPoints(damagePoint);

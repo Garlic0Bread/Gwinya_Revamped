@@ -123,10 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 0
-  bulletLife: 5
+  bulletLife: 1.5
   bulletSpeed: 6
-  radius: 0
-  bulletDamage: 2
+  radius: 1
+  bulletDamage: 0.5
   damagePoint: 0
   bulletTypeString: Kirin
   detectionLayer:
