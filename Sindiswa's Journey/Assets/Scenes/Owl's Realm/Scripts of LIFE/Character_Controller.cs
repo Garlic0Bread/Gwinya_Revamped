@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
-    private Rigidbody2D rb;
     [SerializeField] private float playerOriginalSpeed;
     [SerializeField] private float bulletSpeed = 10f; // Speed of the bullet
     [SerializeField] private float lockOnRange = 10f; // Range within which enemies can be locked onto
@@ -16,20 +15,19 @@ public class Character_Controller : MonoBehaviour
     [SerializeField] private Transform playerGun; // Reference to the player's gun transform
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private GameObject bulletPrefab; // Prefab of the bullet to be spawned
-    [SerializeField] private GameObject kirin;
+    [SerializeField] private GameObject kirinBullet; // Prefab of the bullet to be spawned
     [SerializeField] private Joystick_Movement joystick;
 
-    Vector2 mousePos;
-    public Camera cam;
+    private Rigidbody2D rb;
+    public bool Kirin_Active = false;
+    [SerializeField] private Camera cam;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
     }
     private void Update()
     {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition); //Big Mooos's code for making the character tunr and look in the direction they are moving in
         Vector2 lookDir = joystick.joystick_Vector;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
@@ -66,6 +64,11 @@ public class Character_Controller : MonoBehaviour
             //animator.SetBool("leftRun", false);
         }
     }
+
+    public void Kirin()
+    {
+        Kirin_Active = true;
+    }
     void FireBullet()
     {
         // Instantiate a bullet prefab at the player's gun position and rotation
@@ -74,6 +77,15 @@ public class Character_Controller : MonoBehaviour
         // Apply velocity to the bullet in the forward direction of the gun
         Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
         bulletRigidbody.velocity = playerGun.forward * bulletSpeed;
+
+        if(Kirin_Active == true)
+        {
+            GameObject kirin = Instantiate(kirinBullet, playerGun.position, Quaternion.identity);
+            Rigidbody2D KirinRigidbody = kirin.GetComponent<Rigidbody2D>();
+            KirinRigidbody.velocity = playerGun.forward * bulletSpeed;
+            Kirin_Active = false;
+        }
+        
     }
     void FindEnemiesInScene() //lock on to enemies and shoot at them
     {

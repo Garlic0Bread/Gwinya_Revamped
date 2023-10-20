@@ -9,6 +9,7 @@ TagManager:
   - PlayerFeet
   - HomingBullet
   - PlayerBullet_Normal
+  - KirinBullet
   layers:
   - Default
   - TransparentFX
