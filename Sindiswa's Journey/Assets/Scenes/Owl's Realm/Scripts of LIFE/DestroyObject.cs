@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class DestroyObject : MonoBehaviour
@@ -8,6 +9,20 @@ public class DestroyObject : MonoBehaviour
    
     void Update()
     {
-        Destroy(gameObject, lifetime);
+
+        if (this.gameObject.CompareTag("Multiplier"))
+        {
+            Button multiplierUsed = gameObject.GetComponent<Button>();
+            multiplierUsed.onClick.AddListener(DeactivateSelf);
+        }
+        else
+        {
+            Destroy(gameObject, lifetime);
+        }
+    }
+
+    void DeactivateSelf()
+    {
+        gameObject.SetActive(false);
     }
 }

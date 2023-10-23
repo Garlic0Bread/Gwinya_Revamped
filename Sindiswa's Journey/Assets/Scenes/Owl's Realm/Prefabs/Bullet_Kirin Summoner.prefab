@@ -132,7 +132,7 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  Kirin_Lightning: {fileID: 8755370625050418061, guid: cbf8ff7a7ccec8b42a37a66cffeff741, type: 3}
+  Kirin_Lightning: {fileID: 5527365141684421175, guid: ba0a9c7032e1ade4b8e68c220744978c, type: 3}
   Kirin_Bullet: {fileID: 3981576280147180310}
   kirinActive: 0
 --- !u!61 &8085421562041052752

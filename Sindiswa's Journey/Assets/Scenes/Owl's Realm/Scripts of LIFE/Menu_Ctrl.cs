@@ -5,19 +5,33 @@ using UnityEngine;
 
 public class Menu_Ctrl : MonoBehaviour
 {
-    public void LevelOne()
+    [SerializeField] private float changeTime;
+
+    private void FixedUpdate()
+    {
+        if (this.gameObject.CompareTag("IntroCanvas"))
+        {
+            changeTime -= Time.deltaTime;
+            if (changeTime <= 0)
+            {
+                mainMenu();
+            }
+        }
+    }
+    
+    public void mainMenu()
     {
         SceneManager.LoadScene(1);
     }
-
-    public void mainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-    public void Placeholder()
+    public void LevelOne()
     {
         SceneManager.LoadScene(2);
     }
+    public void Placeholder()
+    {
+        SceneManager.LoadScene(3);
+    }
+
     public void Exit()
     {
         Application.Quit();

@@ -7,8 +7,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float health = 100;
     [SerializeField] private float maxhealth = 100;
-    [SerializeField] private int tokolosh_Exp;
-    [SerializeField] private int pinky_Exp;
+    [SerializeField] private int enemy_ExpWorth;
 
     [SerializeField] private GameObject pinkyDeathVFX;
     [SerializeField] private GameObject Gwinya;
@@ -35,7 +34,7 @@ public class Health : MonoBehaviour
             Die();
         }
     }
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         if (amount < 0)
         {
@@ -44,7 +43,6 @@ public class Health : MonoBehaviour
 
         bool wouldBeOverMaHealth = health + amount > maxhealth;
         StartCoroutine(visualIndicator(Color.green));
-
         if (wouldBeOverMaHealth)
         {
             this.health = maxhealth;
@@ -54,32 +52,15 @@ public class Health : MonoBehaviour
         {
             this.health += amount;
         }
-
     }
     private void Die()
     {
         Destroy(gameObject);
         if (this.CompareTag("Enemy"))
         {
+            GameCurrency addExp = FindObjectOfType<GameCurrency>();
+            addExp.UpdateExp(enemy_ExpWorth);
             Instantiate(pinkyDeathVFX, transform.position, Quaternion.identity);
-            Instantiate(Gwinya, transform.position, Quaternion.identity);
-
-            if (this.gameObject.layer == 3)
-            {
-               //oinManger addExp = FindObjectOfType<CoinManger>();
-                // (addExp != null)
-                {
-                    //dExp.UpdateExp(tokolosh_Exp);
-                }
-            }
-            else if (this.gameObject.layer == 6)
-            {
-                //inManger addExp = FindObjectOfType<CoinManger>();
-               //f (addExp != null)
-                {
-                    //dExp.UpdateExp(pinky_Exp);
-                }
-            }
         }
 
         else if (this.CompareTag("Player"))

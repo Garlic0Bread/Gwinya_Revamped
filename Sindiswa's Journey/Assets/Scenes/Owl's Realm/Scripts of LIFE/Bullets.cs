@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
+    public float bulletLife = 0f;
     [SerializeField] private float followSpeed;
-    [SerializeField] private float bulletLife;
-    [SerializeField] private float bulletSpeed = 10f; 
     [SerializeField] private float radius = 0; 
     [SerializeField] private float bulletDamage;
     [SerializeField] private int damagePoint;
@@ -29,38 +28,16 @@ public class Bullets : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-    
     private void FixedUpdate()
     {
         BulletType(bulletTypeString);
-    }
-    // types of bullets
-    public void BulletType(string bulletType)
-    {
-        if (bulletTypeString == "Homing Bullet") //homing bullet
-        {
-            Vector3 targetPos = player.transform.position;
-            float speed = followSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed);
-        }
-
-        else if(bulletTypeString == "Kirin") //lightning AOE move
-        {
-            kirinActive = true;
-
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, detectionLayer);
-            foreach (Collider2D col in colliders)
-            {
-                col.GetComponent<Health>().Damage(bulletDamage);
-            }
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Health dealDamage = collision.GetComponent<Health>();
 
-        if(kirinActive == true && dealDamage != null)
+        if (kirinActive == true && dealDamage != null)
         {
             Instantiate(Kirin_Lightning, collision.transform.position, Quaternion.identity);
             gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
@@ -78,4 +55,30 @@ public class Bullets : MonoBehaviour
             addPoint.EarnPoints(damagePoint);
         }
     }
+
+    // types of bullets
+    public void BulletType(string bulletType)
+    {
+        if (bulletType == "Homing Bullet") //homing bullet
+        {
+            Vector3 targetPos = player.transform.position;
+            float speed = followSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed);
+        }
+        if (bulletType == "Pierce")
+        {
+            bulletLife = 1f;
+        }
+        else if(bulletType == "Kirin") //lightning AOE move
+        {
+            kirinActive = true;
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, detectionLayer);
+            foreach (Collider2D col in colliders)
+            {
+                col.GetComponent<Health>().Damage(bulletDamage);
+            }
+        }
+    }
+    
 }  

@@ -10,6 +10,8 @@ TagManager:
   - HomingBullet
   - PlayerBullet_Normal
   - KirinBullet
+  - Multiplier
+  - IntroCanvas
   layers:
   - Default
   - TransparentFX

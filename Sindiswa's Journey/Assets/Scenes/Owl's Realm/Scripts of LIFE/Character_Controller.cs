@@ -32,6 +32,12 @@ public class Character_Controller : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
     }
+    void FixedUpdate()
+    {
+        PlayerMove();
+        FindEnemiesInScene();
+    }
+
     void PlayerMove()
     {
         if (joystick.joystick_Vector.y != 0)
@@ -69,6 +75,11 @@ public class Character_Controller : MonoBehaviour
     {
         Kirin_Active = true;
     }
+    public void Increase_FireRate(float IncreaseAmount)
+    {
+        fireRate = fireRate - IncreaseAmount;
+    }
+    
     void FireBullet()
     {
         // Instantiate a bullet prefab at the player's gun position and rotation
@@ -134,10 +145,4 @@ public class Character_Controller : MonoBehaviour
 
         return closestEnemy;
     } 
-
-    void FixedUpdate()
-    {
-        PlayerMove();
-        FindEnemiesInScene();
-    }
 }
