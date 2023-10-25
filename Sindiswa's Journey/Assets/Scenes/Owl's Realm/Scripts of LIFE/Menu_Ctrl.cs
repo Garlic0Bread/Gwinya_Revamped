@@ -6,11 +6,15 @@ using UnityEngine;
 public class Menu_Ctrl : MonoBehaviour
 {
     [SerializeField] private float changeTime;
+    public AudioSource Sounds;
+    public AudioClip introSound;
+    public AudioClip mainMenuClip;
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (this.gameObject.CompareTag("IntroCanvas"))
         {
+            
             changeTime -= Time.deltaTime;
             if (changeTime <= 0)
             {
@@ -18,7 +22,21 @@ public class Menu_Ctrl : MonoBehaviour
             }
         }
     }
-    
+    private void Start()
+    {
+        if (this.gameObject.CompareTag("IntroCanvas"))
+        {
+            Sounds.clip = introSound;
+            Sounds.Play();
+        }
+
+        else if (this.gameObject.CompareTag("MainMenuCanvas"))
+        {
+            Sounds.clip = mainMenuClip;
+            Sounds.Play();
+        }
+    }
+
     public void mainMenu()
     {
         SceneManager.LoadScene(1);

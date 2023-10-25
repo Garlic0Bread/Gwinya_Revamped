@@ -12,6 +12,7 @@ TagManager:
   - KirinBullet
   - Multiplier
   - IntroCanvas
+  - MainMenuCanvas
   layers:
   - Default
   - TransparentFX
