@@ -122,9 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7918ca25e5720346940ee2140d6abc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followSpeed: 0
   bulletLife: 1.5
-  bulletSpeed: 6
+  followSpeed: 0
   radius: 1
   bulletDamage: 0.5
   damagePoint: 0
@@ -132,7 +131,7 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  Kirin_Lightning: {fileID: 5527365141684421175, guid: ba0a9c7032e1ade4b8e68c220744978c, type: 3}
+  Kirin_Lightning: {fileID: 7933455722633507353, guid: 5312fdb951d30a24e85295b0e8433d7c, type: 3}
   Kirin_Bullet: {fileID: 3981576280147180310}
   kirinActive: 0
 --- !u!61 &8085421562041052752
