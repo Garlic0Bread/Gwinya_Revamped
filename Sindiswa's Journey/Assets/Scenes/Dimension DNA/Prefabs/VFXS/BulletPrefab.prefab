@@ -187,7 +187,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 0.8784314}
+      maxColor: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -248,7 +248,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 0
       scalar: 1.5
       minScalar: 1
       maxCurve:
@@ -301,7 +301,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 0
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -345,7 +345,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 1
+      minMaxState: 0
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1104,9 +1104,9 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.90205085
-          inSlope: 0.09794915
-          outSlope: 0.09794915
+          value: 1
+          inSlope: 0
+          outSlope: 0
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -1114,8 +1114,8 @@ ParticleSystem:
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 0.09794915
-          outSlope: 0.09794915
+          inSlope: 0
+          outSlope: 0
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -1149,7 +1149,7 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1202,7 +1202,7 @@ ParticleSystem:
         m_RotationOrder: 4
     z:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1428,9 +1428,9 @@ ParticleSystem:
         key0: {r: 0.10022033, g: 0.0603773, b: 1, a: 1}
         key1: {r: 0.16111912, g: 0.14308695, b: 0.9963132, a: 1}
         key2: {r: 0.2560519, g: 0.27201986, b: 0.990566, a: 1}
-        key3: {r: 0, g: 0.3019608, b: 0.91764706, a: 0.30588236}
-        key4: {r: 0, g: 0, b: 0, a: 0}
-        key5: {r: 0, g: 0, b: 0, a: 0}
+        key3: {r: 0, g: 0.3019608, b: 0.91764706, a: 1}
+        key4: {r: 0, g: 0, b: 0, a: 1}
+        key5: {r: 0, g: 0, b: 0, a: 1}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
@@ -1442,16 +1442,16 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 18311
-        atime2: 42598
-        atime3: 58789
-        atime4: 65535
-        atime5: 0
+        atime1: 1349
+        atime2: 18311
+        atime3: 42598
+        atime4: 58789
+        atime5: 65535
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 4
-        m_NumAlphaKeys: 5
+        m_NumAlphaKeys: 6
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4987,7 +4987,8 @@ Transform:
 --- !u!198 &6451365804592283997
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 19800000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 19800000, guid: 77ec3c4e07a36814fb3169ecef41b50a,
+    type: 3}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6451365804611786813}
@@ -5138,7 +5139,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.9248159, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.20465049, b: 0.6792453, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.6627451, g: 0.85882354, b: 1, a: 1}
@@ -9798,8 +9799,10 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 0
-  Kirin_Lightning: {fileID: 0}
-  Kirin_Bullet: {fileID: 0}
+  Kirin_Lightning: {fileID: 7933455722633507353, guid: 5312fdb951d30a24e85295b0e8433d7c,
+    type: 3}
+  Kirin_Bullet: {fileID: 3981576280147180310, guid: 93256945bff5b8b4eb87809154ae0741,
+    type: 3}
   kirinActive: 0
 --- !u!58 &-312130998006784808
 CircleCollider2D:
