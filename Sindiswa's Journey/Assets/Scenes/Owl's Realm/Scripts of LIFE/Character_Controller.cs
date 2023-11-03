@@ -11,29 +11,43 @@ public class Character_Controller : MonoBehaviour
     [SerializeField] private float lockOnRange = 10f; // Range within which enemies can be locked onto
     [SerializeField] private float fireRate = 0.5f; // Rate of fire (in seconds)
     [SerializeField] private float nextFireTime; // Time of the next allowed fire
+    [SerializeField] private float shieldTimout;
     [SerializeField] private float playerSpeed;
 
-    [SerializeField] private Transform playerGun; // Reference to the player's gun transform
-    [SerializeField] private LayerMask targetLayer;
-    [SerializeField] private GameObject bulletPrefab; // Prefab of the bullet to be spawned
-    [SerializeField] private GameObject kirinBullet; // Prefab of the bullet to be spawned
-    [SerializeField] private Joystick_Movement joystick;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject kirinBullet; 
+    [SerializeField] private GameObject shield;
+
 
     private Rigidbody2D rb;
-    public bool Kirin_Active = false;
-    public bool canFire = false;
-    [SerializeField] private Button KirinButton;
+    private GameCurrency gameCurrency;
+    [SerializeField] private Transform playerGun;
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private Joystick_Movement joystick;
+
     [SerializeField] private Camera cam;
+    [SerializeField] private Button KirinButton;
+    [SerializeField] private bool canFire = false;
+    [SerializeField] private bool Kirin_Active = false;
+    [SerializeField] private bool Shield_Active = false;
 
     void Start()
     {
+        gameCurrency = FindObjectOfType<GameCurrency>();
         rb = GetComponent<Rigidbody2D>();
+        shield.SetActive(false);
+        Shield_Active = false;
     }
     private void Update()
     {
         Vector2 lookDir = joystick.joystick_Vector;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
+
+        if(Shield_Active == true)
+        {
+            shieldTimout -= Time.deltaTime;
+        }
     }
     void FixedUpdate()
     {
@@ -149,6 +163,26 @@ public class Character_Controller : MonoBehaviour
     }
     public void Increase_FireRate(float IncreaseAmount)
     {
-        fireRate = fireRate - IncreaseAmount;
+        fireRate -= IncreaseAmount;
+        gameCurrency.Points -= 1;
+    }
+    public void ActivateShield()
+    {
+        StartCoroutine(shieldDuration());
+        gameCurrency.Points -= 3;
+    }
+    public void Increase_Speed(float IncreaseAmount)
+    {
+        playerSpeed += IncreaseAmount;
+        gameCurrency.Points -= 2;
+    }
+
+    IEnumerator shieldDuration()
+    {
+        shield.SetActive(true);
+        Shield_Active = true;
+        yield return new WaitForSeconds(shieldTimout);
+        Shield_Active = false;
+        shield.SetActive(false);
     }
 }

@@ -9,19 +9,21 @@ public class GameCurrency : MonoBehaviour
 {
     public int enemiesInLevel;
     [SerializeField] private float exp;
-    [SerializeField] private int Points; //core is received from shooting enemies <when bullet touches enemye>
+    public int Points; //core is received from shooting enemies <when bullet touches enemye>
 
     [SerializeField] private Image expBar;
     [SerializeField] private TMP_Text numCoins;
     [SerializeField] private Transform[] spawnPoints;
 
     [SerializeField] private GameObject Store;
-    [SerializeField] private GameObject nextLevelPoint;
     [SerializeField] private Button KirinButton;
+    [SerializeField] private GameObject nextLevelPoint;
+
+    [SerializeField] private AudioSource expReachedMax;
 
     private void Update()
     {
-        //numCoins.text = Points.ToString();
+        numCoins.text = Points.ToString();
         // Ability_Spawner spawnItem = FindObjectOfType<Ability_Spawner>(); When player's Exp reaches 100 reward with choice of ability
         // spawnItem.Spawn();
         UpdateExp();
@@ -57,9 +59,10 @@ public class GameCurrency : MonoBehaviour
     {
         exp += expToGive;
         expBar.fillAmount = exp / 100f;
-        if(exp == 100)
+        if(exp >= 100)
         {
             Points += 1;
+            expReachedMax.Play();
             Debug.Log(Points);
         }
         // Enemy increaseEnemySpeed = FindObjectOfType<Enemy>();
@@ -68,7 +71,6 @@ public class GameCurrency : MonoBehaviour
 
     public void EnemiesLeft(int removePoint)
     {
-        print("called");
         enemiesInLevel = enemiesInLevel - removePoint;
         if(enemiesInLevel <= 0)
         {
