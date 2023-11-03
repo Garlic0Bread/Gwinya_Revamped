@@ -6,15 +6,14 @@ using UnityEngine;
 public class Menu_Ctrl : MonoBehaviour
 {
     [SerializeField] private float changeTime;
-    public AudioSource Sounds;
-    public AudioClip introSound;
-    public AudioClip mainMenuClip;
+    public AudioSource Intro;
+    public AudioSource MainMenu;
+    public AudioSource Death;
 
     private void Update()
     {
         if (this.gameObject.CompareTag("IntroCanvas"))
         {
-            
             changeTime -= Time.deltaTime;
             if (changeTime <= 0)
             {
@@ -26,14 +25,17 @@ public class Menu_Ctrl : MonoBehaviour
     {
         if (this.gameObject.CompareTag("IntroCanvas"))
         {
-            Sounds.clip = introSound;
-            Sounds.Play();
+            Intro.Play();
         }
 
         else if (this.gameObject.CompareTag("MainMenuCanvas"))
         {
-            Sounds.clip = mainMenuClip;
-            Sounds.Play();
+            MainMenu.Play();
+        }
+
+        else if (this.gameObject.CompareTag("GameManager"))
+        {
+            MainMenu.Play();
         }
     }
 
@@ -41,13 +43,22 @@ public class Menu_Ctrl : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    public void LevelOne()
+
+    public void LoadNextLevel(int sceneNumber)
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(WaitBeforeLoading(sceneNumber));
     }
+
+    IEnumerator WaitBeforeLoading(int levelNumber)
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(levelNumber);
+    }
+
+
     public void Placeholder()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(5);
     }
 
     public void Exit()

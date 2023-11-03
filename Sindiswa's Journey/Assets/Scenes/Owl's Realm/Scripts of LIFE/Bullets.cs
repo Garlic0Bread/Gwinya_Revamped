@@ -8,7 +8,6 @@ public class Bullets : MonoBehaviour
     [SerializeField] private float followSpeed;
     [SerializeField] private float radius = 0; 
     [SerializeField] private float bulletDamage;
-    [SerializeField] private int damagePoint;
 
     [SerializeField] private string bulletTypeString;
     [SerializeField] private LayerMask detectionLayer; // Set this in the Inspector to specify which layers the circle should detect
@@ -50,9 +49,6 @@ public class Bullets : MonoBehaviour
         {
             dealDamage.Damage(bulletDamage);
             Destroy(gameObject, bulletLife); //add time to make a bullet that goes through enemies
-
-            GameCurrency addPoint = FindObjectOfType<GameCurrency>();
-            addPoint.EarnPoints(damagePoint);
         }
     }
 

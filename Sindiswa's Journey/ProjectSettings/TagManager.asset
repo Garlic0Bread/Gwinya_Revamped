@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - PlayerFeet
+  - FxTemporaire
+  - Multiplier
+  - PlayerBullet
+  - PlayerBullet_Normal
+  - IntroCanvas
+  - EndPoint
+  - MainMenuCanvas
+  - GameManager
+  - StartPoint
   layers:
   - Default
   - TransparentFX

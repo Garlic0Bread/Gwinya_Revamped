@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using System.Linq;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class Character_Controller : MonoBehaviour
 
     private Rigidbody2D rb;
     public bool Kirin_Active = false;
+    public bool canFire = false;
+    [SerializeField] private Button KirinButton;
     [SerializeField] private Camera cam;
 
     void Start()
@@ -43,10 +46,12 @@ public class Character_Controller : MonoBehaviour
         if (joystick.joystick_Vector.y != 0)
         {
             rb.velocity = new Vector2(joystick.joystick_Vector.x * playerSpeed, joystick.joystick_Vector.y * playerSpeed);
+            canFire = false;
         }
         else
         {
             rb.velocity = Vector2.zero;
+            canFire = true;
         }
 
         //run to the right
@@ -70,33 +75,26 @@ public class Character_Controller : MonoBehaviour
             //animator.SetBool("leftRun", false);
         }
     }
-
-    public void Kirin()
-    {
-        Kirin_Active = true;
-    }
-    public void Increase_FireRate(float IncreaseAmount)
-    {
-        fireRate = fireRate - IncreaseAmount;
-    }
-    
     void FireBullet()
     {
-        // Instantiate a bullet prefab at the player's gun position and rotation
-        GameObject bullet = Instantiate(bulletPrefab, playerGun.position, Quaternion.identity);
+        if (canFire == true)
+        {
+            // Instantiate a bullet prefab at the player's gun position and rotation
+            GameObject bullet = Instantiate(bulletPrefab, playerGun.position, Quaternion.identity);
 
-        // Apply velocity to the bullet in the forward direction of the gun
-        Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
-        bulletRigidbody.velocity = playerGun.forward * bulletSpeed;
+            // Apply velocity to the bullet in the forward direction of the gun
+            Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+            bulletRigidbody.velocity = playerGun.forward * bulletSpeed;
+        }
 
-        if(Kirin_Active == true)
+        if (Kirin_Active == true)
         {
             GameObject kirin = Instantiate(kirinBullet, playerGun.position, Quaternion.identity);
             Rigidbody2D KirinRigidbody = kirin.GetComponent<Rigidbody2D>();
             KirinRigidbody.velocity = playerGun.forward * bulletSpeed;
             Kirin_Active = false;
         }
-        
+
     }
     void FindEnemiesInScene() //lock on to enemies and shoot at them
     {
@@ -107,7 +105,7 @@ public class Character_Controller : MonoBehaviour
             Transform closestEnemy = GetClosestEnemy(enemies);
 
             // Check if the closest enemy is within lock-on range
-            if (Vector3.Distance(transform.position, closestEnemy.position) <= lockOnRange)
+            if (Vector3.Distance(transform.position, closestEnemy.position) <= lockOnRange && canFire == true)
             {
                 // Rotate the player's gun to face the closest enemy
                 Vector3 targetDirection = closestEnemy.position - playerGun.position;
@@ -126,7 +124,6 @@ public class Character_Controller : MonoBehaviour
             }
         }
     }
-
     Transform GetClosestEnemy(GameObject[] enemies) //find enemies that are within range and lock on to them
     {
         Transform closestEnemy = null;
@@ -144,5 +141,14 @@ public class Character_Controller : MonoBehaviour
         }
 
         return closestEnemy;
-    } 
+    }
+
+    public void Kirin()
+    {
+        Kirin_Active = true;
+    }
+    public void Increase_FireRate(float IncreaseAmount)
+    {
+        fireRate = fireRate - IncreaseAmount;
+    }
 }

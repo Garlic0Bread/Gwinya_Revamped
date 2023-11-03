@@ -124,14 +124,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletLife: 1.5
   followSpeed: 0
-  radius: 1
-  bulletDamage: 0.5
-  damagePoint: 0
+  radius: 1.5
+  bulletDamage: 1
   bulletTypeString: Kirin
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  Kirin_Lightning: {fileID: 7933455722633507353, guid: 5312fdb951d30a24e85295b0e8433d7c, type: 3}
+  Kirin_Lightning: {fileID: 7933455722633507353, guid: 5312fdb951d30a24e85295b0e8433d7c,
+    type: 3}
   Kirin_Bullet: {fileID: 3981576280147180310}
   kirinActive: 0
 --- !u!61 &8085421562041052752

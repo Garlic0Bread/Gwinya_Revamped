@@ -5,19 +5,22 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float health = 100;
+    public float health = 100;
     [SerializeField] private float maxhealth = 100;
-    [SerializeField] private int enemy_ExpWorth;
+    [SerializeField] private float enemy_ExpWorth;
+    [SerializeField] private int enemyDeadPoint;
 
-    [SerializeField] private GameObject pinkyDeathVFX;
+    [SerializeField] private GameObject DeathVFX;
     [SerializeField] private GameObject Gwinya;
     [SerializeField] private Image healthBar;
 
+    [SerializeField] private AudioSource Death;
+
     private void Update()
     {
-        //if (this.CompareTag("Player"))
+        if (this.CompareTag("Player"))
         {
-            //healthBar.fillAmount = health / 100f;
+            healthBar.fillAmount = health / 100f;
         }
     }
     public void Damage(float amount)
@@ -29,8 +32,9 @@ public class Health : MonoBehaviour
         this.health -= amount;
         StartCoroutine(visualIndicator(Color.red));
 
-        if (health < 0)
+        if (health <= 0)
         {
+            Death.Play();
             Die();
         }
     }
@@ -55,18 +59,14 @@ public class Health : MonoBehaviour
     }
     private void Die()
     {
-        Destroy(gameObject);
         if (this.CompareTag("Enemy"))
         {
-            GameCurrency addExp = FindObjectOfType<GameCurrency>();
-            addExp.UpdateExp(enemy_ExpWorth);
-            Instantiate(pinkyDeathVFX, transform.position, Quaternion.identity);
+            GameCurrency updateCurrencies = FindObjectOfType<GameCurrency>();
+            updateCurrencies.EnemiesLeft(enemyDeadPoint);
+            updateCurrencies.IncreaseExp(enemy_ExpWorth);
+            Instantiate(DeathVFX, transform.position, Quaternion.identity);
         }
-
-        else if (this.CompareTag("Player"))
-        {
-            //eneManager.LoadScene(2);
-        }
+        Destroy(gameObject);
     }
 
     private IEnumerator visualIndicator(Color color)

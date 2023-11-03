@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6518418541837986378}
   m_Layer: 0
   m_Name: Bullet_SpiritBall
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +118,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5148835496263050777}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e4083c075ae67a14b8e0768442ca3094, type: 2}
   m_CullingMode: 0
@@ -146,8 +146,7 @@ MonoBehaviour:
   bulletLife: 0
   followSpeed: 0
   radius: 0
-  bulletDamage: 15
-  damagePoint: 0
+  bulletDamage: 20
   bulletTypeString: 
   detectionLayer:
     serializedVersion: 2

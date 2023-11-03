@@ -1,72 +1,78 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
 public class GameCurrency : MonoBehaviour
 {
+    public int enemiesInLevel;
+    [SerializeField] private float exp;
     [SerializeField] private int Points; //core is received from shooting enemies <when bullet touches enemye>
-    [SerializeField] private TMP_Text numCoins;
-
-    private int numberOfObjectsToActivate = 3;
-    [SerializeField] private GameObject[] abilities;
-    [SerializeField] private Transform[] spawnPoints;
 
     [SerializeField] private Image expBar;
-    [SerializeField] private int exp;
+    [SerializeField] private TMP_Text numCoins;
+    [SerializeField] private Transform[] spawnPoints;
+
+    [SerializeField] private GameObject Store;
+    [SerializeField] private GameObject nextLevelPoint;
+    [SerializeField] private Button KirinButton;
 
     private void Update()
     {
         //numCoins.text = Points.ToString();
         // Ability_Spawner spawnItem = FindObjectOfType<Ability_Spawner>(); When player's Exp reaches 100 reward with choice of ability
         // spawnItem.Spawn();
-
-        Activate_AbilitySelecter();
+        UpdateExp();
     }
-    void Activate_AbilitySelecter()
+    private void Start()
+    {
+        nextLevelPoint.SetActive(false);
+        KirinButton.interactable = false;
+    }
+    void UpdateExp()
     {
         if (exp >= 100)
         {
+            KirinButton.interactable = true;
             exp = 0;
-            SelectRandomAbilities();
         }
     }
 
-    void SelectRandomAbilities()
+    public void EnableStore(bool storeAvailable = false)
     {
-        if (abilities.Length <= 0)
+        if(storeAvailable == true)
         {
-            Debug.LogWarning("No GameObjects or no objects to activate.");
-            return;
+            Store.SetActive(true);
+        }
+        if (storeAvailable == false)
+        {
+            Store.SetActive(false);
         }
 
-        int randomIndex = Random.Range(0, abilities.Length); // Choose a random index.
-        abilities[randomIndex].SetActive(true);
-
-        void Disable()
-        {
-            abilities[randomIndex].SetActive(false);
-        }
-
-        foreach (GameObject ability in abilities)
-        {
-            Button newButton = ability.GetComponentInChildren<Button>();
-            newButton.onClick.AddListener(Disable);
-        }
     }
 
-    public void EarnPoints(int pointsEarned) //call when bullet collides with enemy
-    {
-        Points += pointsEarned;
-        Debug.Log(Points);
-    }
-
-    public void UpdateExp(int expToGive) //call when enemy dies
+    public void IncreaseExp(float expToGive) //call when enemy dies
     {
         exp += expToGive;
         expBar.fillAmount = exp / 100f;
-       // Enemy increaseEnemySpeed = FindObjectOfType<Enemy>();
-       // increaseEnemySpeed.IncreaseSpeed(0.05f);
+        if(exp == 100)
+        {
+            Points += 1;
+            Debug.Log(Points);
+        }
+        // Enemy increaseEnemySpeed = FindObjectOfType<Enemy>();
+        // increaseEnemySpeed.IncreaseSpeed(0.05f);
+    }
+
+    public void EnemiesLeft(int removePoint)
+    {
+        print("called");
+        enemiesInLevel = enemiesInLevel - removePoint;
+        if(enemiesInLevel <= 0)
+        {
+            nextLevelPoint.SetActive(true);
+        }
     }
 }
