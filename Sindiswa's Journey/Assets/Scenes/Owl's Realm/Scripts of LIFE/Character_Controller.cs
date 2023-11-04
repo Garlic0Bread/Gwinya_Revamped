@@ -163,21 +163,42 @@ public class Character_Controller : MonoBehaviour
     }
     public void Increase_FireRate(float IncreaseAmount)
     {
-        fireRate -= IncreaseAmount;
-        gameCurrency.Points -= 1;
+        if(gameCurrency.Points <= 0)
+        {
+            return;
+        }
+        else
+        {
+            fireRate -= IncreaseAmount;
+            gameCurrency.Points -= 1;
+        }
     }
     public void ActivateShield()
     {
-        StartCoroutine(shieldDuration());
-        gameCurrency.Points -= 3;
+        if (gameCurrency.Points <= 0)
+        {
+            return;
+        }
+        else
+        {
+            StartCoroutine(ShieldDuration());
+            gameCurrency.Points -= 3;
+        }
     }
     public void Increase_Speed(float IncreaseAmount)
     {
-        playerSpeed += IncreaseAmount;
-        gameCurrency.Points -= 2;
+        if (gameCurrency.Points <= 0)
+        {
+            return;
+        }
+        else
+        {
+            playerSpeed += IncreaseAmount;
+            gameCurrency.Points -= 2;
+        }
     }
 
-    IEnumerator shieldDuration()
+    IEnumerator ShieldDuration()
     {
         shield.SetActive(true);
         Shield_Active = true;

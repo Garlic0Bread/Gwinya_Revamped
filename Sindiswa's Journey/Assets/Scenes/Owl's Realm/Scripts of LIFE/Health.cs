@@ -40,21 +40,29 @@ public class Health : MonoBehaviour
     }
     public void Heal(float amount)
     {
-        if (amount < 0)
+        GameCurrency gameCurrency = FindObjectOfType<GameCurrency>();
+        if(gameCurrency.Points <= 0)
         {
-            throw new System.ArgumentOutOfRangeException("Cannot have negative Healing");
+            return;
         }
-
-        bool wouldBeOverMaHealth = health + amount > maxhealth;
-        StartCoroutine(visualIndicator(Color.green));
-        if (wouldBeOverMaHealth)
-        {
-            this.health = maxhealth;
-        }
-
         else
         {
-            this.health += amount;
+            if (amount < 0)
+            {
+                throw new System.ArgumentOutOfRangeException("Cannot have negative Healing");
+            }
+
+            bool wouldBeOverMaHealth = health + amount > maxhealth;
+            StartCoroutine(visualIndicator(Color.green));
+            if (wouldBeOverMaHealth)
+            {
+                this.health = maxhealth;
+            }
+
+            else
+            {
+                this.health += amount;
+            }
         }
     }
     private void Die()

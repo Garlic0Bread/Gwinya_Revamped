@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Build Scene -Restricted-/Level Two.unity
     guid: cf5b66cf258ec784bad726409d3907c0
+  - enabled: 1
+    path: Assets/Scenes/Owl's Realm/Scenes/Placeholder.unity
+    guid: 9b604e631578d154ca13c8809f0321d3
   m_configObjects: {}

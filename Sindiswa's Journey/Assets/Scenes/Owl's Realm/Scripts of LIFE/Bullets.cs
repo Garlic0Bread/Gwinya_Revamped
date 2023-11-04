@@ -26,6 +26,7 @@ public class Bullets : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        bulletLife = 0f;
     }
     private void FixedUpdate()
     {
@@ -63,7 +64,17 @@ public class Bullets : MonoBehaviour
         }
         if (bulletType == "Pierce")
         {
-            bulletLife = 1f;
+            GameCurrency gameCurrency = FindObjectOfType<GameCurrency>();
+
+            if (gameCurrency.Points <= 0)
+            {
+                return;
+            }
+            else
+            {
+                bulletLife = 1f;
+                gameCurrency.Points -= 1;
+            }
         }
         else if(bulletType == "Kirin") //lightning AOE move
         {

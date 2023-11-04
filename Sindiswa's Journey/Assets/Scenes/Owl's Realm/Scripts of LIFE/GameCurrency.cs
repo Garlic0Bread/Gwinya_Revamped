@@ -24,6 +24,10 @@ public class GameCurrency : MonoBehaviour
     private void Update()
     {
         numCoins.text = Points.ToString();
+        if(Points <= 0)
+        {
+            Points = 0;
+        }
         // Ability_Spawner spawnItem = FindObjectOfType<Ability_Spawner>(); When player's Exp reaches 100 reward with choice of ability
         // spawnItem.Spawn();
         UpdateExp();

@@ -6044,7 +6044,7 @@ PrefabInstance:
     - target: {fileID: 1616450219, guid: 46be1cc442cb19d4db42375d874a2b8a, type: 3}
       propertyPath: Sounds
       value: 
-      objectReference: {fileID: 2066739184}
+      objectReference: {fileID: 0}
     - target: {fileID: 1616450219, guid: 46be1cc442cb19d4db42375d874a2b8a, type: 3}
       propertyPath: deathSound
       value: 
@@ -10737,7 +10737,7 @@ Transform:
   - {fileID: 1824932467}
   - {fileID: 1151523862}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376706833
 GameObject:
@@ -26825,7 +26825,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929890318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.189, y: -32.14, z: -10}
+  m_LocalPosition: {x: 0.211, y: -33.745, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31788,7 +31788,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114413617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19075203, y: -30.08648, z: -10}
+  m_LocalPosition: {x: 0.2141236, y: -30.086578, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49869,6 +49869,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 493464309}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2017825806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8624910410898165384, guid: 7d9566479a41eea4796a99a1384758ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 8624910410853261488}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2018707651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7947911505737750448, guid: f826bf48ad5bedc4ab6cabe6c4e498e8,
@@ -52050,7 +52062,7 @@ PrefabInstance:
     - target: {fileID: 1616450219, guid: 46be1cc442cb19d4db42375d874a2b8a, type: 3}
       propertyPath: Sounds
       value: 
-      objectReference: {fileID: 2066739184}
+      objectReference: {fileID: 0}
     - target: {fileID: 1616450219, guid: 46be1cc442cb19d4db42375d874a2b8a, type: 3}
       propertyPath: deathSound
       value: 
@@ -52147,12 +52159,6 @@ PrefabInstance:
 --- !u!4 &2066739179 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3272254807611255080, guid: 46be1cc442cb19d4db42375d874a2b8a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2066739178}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &2066739184 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5076384791343473978, guid: 46be1cc442cb19d4db42375d874a2b8a,
     type: 3}
   m_PrefabInstance: {fileID: 2066739178}
   m_PrefabAsset: {fileID: 0}
@@ -54739,17 +54745,17 @@ PrefabInstance:
     - target: {fileID: 6231723235470152124, guid: ada22885a54f9e642b39831e01fb9b11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6231723235470152124, guid: ada22885a54f9e642b39831e01fb9b11,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.059
+      value: 0.081
       objectReference: {fileID: 0}
     - target: {fileID: 6231723235470152124, guid: ada22885a54f9e642b39831e01fb9b11,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -31.5
+      value: -33.105
       objectReference: {fileID: 0}
     - target: {fileID: 6231723235470152124, guid: ada22885a54f9e642b39831e01fb9b11,
         type: 3}
@@ -54806,6 +54812,11 @@ PrefabInstance:
       propertyPath: KirinButton
       value: 
       objectReference: {fileID: 2143877823}
+    - target: {fileID: 6231723235470152127, guid: ada22885a54f9e642b39831e01fb9b11,
+        type: 3}
+      propertyPath: Death
+      value: 
+      objectReference: {fileID: 700544103}
     - target: {fileID: 6231723235470152127, guid: ada22885a54f9e642b39831e01fb9b11,
         type: 3}
       propertyPath: healthBar
@@ -54895,6 +54906,11 @@ PrefabInstance:
       propertyPath: expBar
       value: 
       objectReference: {fileID: 833773496}
+    - target: {fileID: 6734034857800557807, guid: d62aa24b743f8194aa52c84281960188,
+        type: 3}
+      propertyPath: numCoins
+      value: 
+      objectReference: {fileID: 2017825806}
     - target: {fileID: 6734034857800557807, guid: d62aa24b743f8194aa52c84281960188,
         type: 3}
       propertyPath: KirinButton
@@ -55044,6 +55060,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2140798904}
+    - target: {fileID: 8624910409876641931, guid: 7d9566479a41eea4796a99a1384758ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9566479a41eea4796a99a1384758ff, type: 3}
 --- !u!1001 &8727576116957790920
