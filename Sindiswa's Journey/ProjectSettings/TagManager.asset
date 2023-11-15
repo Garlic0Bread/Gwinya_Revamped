@@ -15,6 +15,7 @@ TagManager:
   - MainMenuCanvas
   - GameManager
   - StartPoint
+  - Player1
   layers:
   - Default
   - TransparentFX
