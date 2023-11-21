@@ -111,7 +111,7 @@ public class Character_Controller : MonoBehaviour
     }
     void FireBullet()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Fire1"))
         {
             // Instantiate a bullet prefab at the player's gun position and rotation
             GameObject bullet = Instantiate(bulletPrefab, playerGun.position, Quaternion.identity);

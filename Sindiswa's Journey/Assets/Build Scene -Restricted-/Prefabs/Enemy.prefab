@@ -150,7 +150,7 @@ MonoBehaviour:
   damagePoint: 1
   damage: 5
   speed: 1
-  fireRate: 0.5
+  fireRate: 1.01
   nextFireTime: 0
   lockOnRange: 5.5
   bulletSpeed: 1.5

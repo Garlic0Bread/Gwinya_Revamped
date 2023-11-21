@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7918ca25e5720346940ee2140d6abc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletLife: 3.2
+  bulletLife: 0
   followSpeed: 0
   radius: 0
   bulletDamage: 20
@@ -151,8 +151,10 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 0
-  Kirin_Lightning: {fileID: 0}
-  Kirin_Bullet: {fileID: 0}
+  Kirin_Lightning: {fileID: 3981576280147180310, guid: 93256945bff5b8b4eb87809154ae0741,
+    type: 3}
+  shrapnel: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f,
+    type: 3}
   kirinActive: 0
 --- !u!58 &3153535488653960716
 CircleCollider2D:
