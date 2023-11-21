@@ -48,8 +48,8 @@ public class Character_Controller : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
 
-        movement.y = Input.GetAxisRaw("Vertical"); //Gets axis for vertical input.
-        movement.x = Input.GetAxisRaw("Horizontal");  //Gets axis for horizontal input.
+        movement.y = Mathf.Lerp(movement.y, Input.GetAxis("Vertical"), 0.2f); //Gets axis for vertical input.
+        movement.x = Mathf.Lerp(movement.x, Input.GetAxis("Horizontal"), 0.2f);  //Gets axis for horizontal input.
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition); //makes the mouse position relative to the screen in game.
 
         if (Shield_Active == true)
