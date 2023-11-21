@@ -31788,7 +31788,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114413617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2141236, y: -30.086578, z: -10}
+  m_LocalPosition: {x: 0.15316315, y: -33.50533, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54812,6 +54812,11 @@ PrefabInstance:
       propertyPath: KirinButton
       value: 
       objectReference: {fileID: 2143877823}
+    - target: {fileID: 6231723235470152125, guid: ada22885a54f9e642b39831e01fb9b11,
+        type: 3}
+      propertyPath: mobileControlls
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6231723235470152127, guid: ada22885a54f9e642b39831e01fb9b11,
         type: 3}
       propertyPath: Death
@@ -55061,6 +55066,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2140798904}
     - target: {fileID: 8624910409876641931, guid: 7d9566479a41eea4796a99a1384758ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624910410008458420, guid: 7d9566479a41eea4796a99a1384758ff,
         type: 3}
       propertyPath: m_IsActive
       value: 0
