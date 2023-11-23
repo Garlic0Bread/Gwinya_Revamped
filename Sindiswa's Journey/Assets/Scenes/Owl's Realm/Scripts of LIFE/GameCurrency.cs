@@ -16,10 +16,18 @@ public class GameCurrency : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
 
     [SerializeField] private GameObject Store;
+    [SerializeField] private GameObject Inventory;
     [SerializeField] private Button KirinButton;
     [SerializeField] private GameObject nextLevelPoint;
 
     [SerializeField] private AudioSource expReachedMax;
+
+    private void Start()
+    {
+        nextLevelPoint.SetActive(false);
+        KirinButton.interactable = false;
+        Inventory.SetActive(false);
+    }
 
     private void Update()
     {
@@ -31,12 +39,13 @@ public class GameCurrency : MonoBehaviour
         // Ability_Spawner spawnItem = FindObjectOfType<Ability_Spawner>(); When player's Exp reaches 100 reward with choice of ability
         // spawnItem.Spawn();
         UpdateExp();
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Inventory.SetActive(true);
+        }
     }
-    private void Start()
-    {
-        nextLevelPoint.SetActive(false);
-        KirinButton.interactable = false;
-    }
+   
     void UpdateExp()
     {
         if (exp >= 100)

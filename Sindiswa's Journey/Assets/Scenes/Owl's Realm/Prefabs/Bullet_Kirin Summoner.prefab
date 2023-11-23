@@ -132,7 +132,8 @@ MonoBehaviour:
     m_Bits: 8
   Kirin_Lightning: {fileID: 7933455722633507353, guid: 5312fdb951d30a24e85295b0e8433d7c,
     type: 3}
-  Kirin_Bullet: {fileID: 3981576280147180310}
+  shrapnel: {fileID: 4794043405585894037, guid: 37138c0c33167b04fa1fb90b7f5a794f,
+    type: 3}
   kirinActive: 0
 --- !u!61 &8085421562041052752
 BoxCollider2D:

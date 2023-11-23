@@ -13,7 +13,7 @@ public class Bullets : MonoBehaviour
     [SerializeField] private LayerMask detectionLayer; // Set this in the Inspector to specify which layers the circle should detect
 
     [SerializeField] private GameObject Kirin_Lightning;
-    [SerializeField] private GameObject Kirin_Bullet;
+    [SerializeField] private GameObject shrapnel;
     public bool kirinActive = false;
     private GameObject player;
 
@@ -49,6 +49,7 @@ public class Bullets : MonoBehaviour
         if (collision.gameObject.layer != 6 && dealDamage != null)
         {
             dealDamage.Damage(bulletDamage);
+            Instantiate(shrapnel, collision.transform.position, Quaternion.identity);
             Destroy(gameObject, bulletLife); //add time to make a bullet that goes through enemies
         }
     }

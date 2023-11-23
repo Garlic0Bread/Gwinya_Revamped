@@ -21,6 +21,9 @@ public class Character_Controller : MonoBehaviour
 
     private Rigidbody2D rb;
     private GameCurrency gameCurrency;
+    private Vector2 mousePos; //Vector for the mouse position
+    private Vector2 movement;
+
     [SerializeField] private Transform playerGun;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private Joystick_Movement joystick;
@@ -28,6 +31,7 @@ public class Character_Controller : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Button KirinButton;
     [SerializeField] private bool canFire = false;
+    [SerializeField] private bool mobileController;
     [SerializeField] private bool Kirin_Active = false;
     [SerializeField] private bool Shield_Active = false;
 
@@ -44,10 +48,15 @@ public class Character_Controller : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
 
-        if(Shield_Active == true)
+        movement.y = Mathf.Lerp(movement.y, Input.GetAxis("Vertical"), 0.2f); //Gets axis for vertical input.
+        movement.x = Mathf.Lerp(movement.x, Input.GetAxis("Horizontal"), 0.2f);  //Gets axis for horizontal input.
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition); //makes the mouse position relative to the screen in game.
+
+        if (Shield_Active == true)
         {
             shieldTimout -= Time.deltaTime;
         }
+        FireBullet();
     }
     void FixedUpdate()
     {
@@ -57,48 +66,59 @@ public class Character_Controller : MonoBehaviour
 
     void PlayerMove()
     {
-        if (joystick.joystick_Vector.y != 0)
+        if(mobileController == true)
         {
-            rb.velocity = new Vector2(joystick.joystick_Vector.x * playerSpeed, joystick.joystick_Vector.y * playerSpeed);
-            canFire = false;
+            if (joystick.joystick_Vector.y != 0)
+            {
+                rb.velocity = new Vector2(joystick.joystick_Vector.x * playerSpeed, joystick.joystick_Vector.y * playerSpeed);
+                canFire = false;
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+                canFire = true;
+            }
+
+            //run to the right
+            if (joystick.joystick_Vector.x > 0.35f)
+            {
+                rb.velocity = new Vector2(joystick.joystick_Vector.x * playerSpeed, joystick.joystick_Vector.y * playerSpeed);
+                //animator.SetBool("rightRun", true);
+            }
+            else if (joystick.joystick_Vector.x <= 0.35f)
+            {
+                //animator.SetBool("rightRun", false);
+            }
+
+            if (joystick.joystick_Vector.x < -0.35f) //run to the left
+            {
+                rb.velocity = new Vector2(joystick.joystick_Vector.x * playerSpeed, joystick.joystick_Vector.y * playerSpeed);
+                //animator.SetBool("leftRun", true);
+            }
+            else if (joystick.joystick_Vector.x >= -0.35f)
+            {
+                //animator.SetBool("leftRun", false);
+            }
         }
         else
         {
-            rb.velocity = Vector2.zero;
-            canFire = true;
+            rb.MovePosition(rb.position + movement * playerSpeed * Time.deltaTime); //rotates the rigidbody with relation to the mouse.
+            Vector2 lookDirection = mousePos - rb.position;
+            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f; //calculates the angle to adjust the body towards the mosue position.
+            rb.rotation = angle;
         }
-
-        //run to the right
-        if (joystick.joystick_Vector.x > 0.35f) 
-        {
-            rb.velocity = new Vector2(joystick.joystick_Vector.x * playerSpeed, joystick.joystick_Vector.y * playerSpeed);
-            //animator.SetBool("rightRun", true);
-        }
-        else if (joystick.joystick_Vector.x <= 0.35f)
-        {
-            //animator.SetBool("rightRun", false);
-        }
-
-        if (joystick.joystick_Vector.x < -0.35f) //run to the left
-        {
-            rb.velocity = new Vector2(joystick.joystick_Vector.x * playerSpeed, joystick.joystick_Vector.y * playerSpeed);
-            //animator.SetBool("leftRun", true);
-        }
-        else if (joystick.joystick_Vector.x >= -0.35f)
-        {
-            //animator.SetBool("leftRun", false);
-        }
+        
     }
     void FireBullet()
     {
-        if (canFire == true)
+        if (Input.GetButtonDown("Fire1"))
         {
             // Instantiate a bullet prefab at the player's gun position and rotation
             GameObject bullet = Instantiate(bulletPrefab, playerGun.position, Quaternion.identity);
 
             // Apply velocity to the bullet in the forward direction of the gun
             Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
-            bulletRigidbody.velocity = playerGun.forward * bulletSpeed;
+            bulletRigidbody.velocity = playerGun.up * bulletSpeed;
         }
 
         if (Kirin_Active == true)
