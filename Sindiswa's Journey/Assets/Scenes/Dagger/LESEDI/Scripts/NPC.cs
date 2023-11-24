@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody2D>();
+      body =  GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -21,10 +21,17 @@ public class NPC : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        dTrig.SetActive(true);
+        if (collision.CompareTag("Player"))  // Replace "Player" with the tag you want to check
+        {
+            dTrig.SetActive(true);
+        }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        dTrig.SetActive(false);
+        if (collision.CompareTag("Player"))  // Replace "Player" with the tag you want to check
+        {
+            dTrig.SetActive(false);
+        }
     }
 }
