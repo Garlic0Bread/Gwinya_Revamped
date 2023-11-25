@@ -4,31 +4,35 @@ using UnityEngine;
 
 public class Enemies : MonoBehaviour
 {
-    [SerializeField] private int damagePoint;
     [SerializeField] private int damage = 5;
+    [SerializeField] private int damagePoint;
     [SerializeField] private float speed = 1.5f;
-    [SerializeField] private float fireRate = 0.5f; // Rate of fire (in seconds)
+    [SerializeField] private float attackCooldown;
+
     [SerializeField] private float nextFireTime; // Time of the next allowed fire
-    [SerializeField] private float lockOnRange = 10f; // Range within which player can be locked onto
+    [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private float lockOnRange = 10f; 
     [SerializeField] private float bulletSpeed = 1.5f;
 
     [SerializeField] private GameObject enemyBullet;
     [SerializeField] private GameObject shrapnelVFX;
     [SerializeField] private Transform bulletSpawnPoint;
 
-    public float attackCooldown;
     private float _lastAttackTime;
-
-    private GameObject player;
+    private GameObject Player;
+    private Rigidbody2D playerRB;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        Player = GameObject.FindGameObjectWithTag("Player");
+        playerRB = GetComponent<Rigidbody2D>();
     }
-
     private void Update()
     {
         GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        Vector2 lookDirection = Player.GetComponent<Rigidbody2D>().position - playerRB.position;
+        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f; //calculates the angle to adjust the body towards the mosue position.
+        playerRB.rotation = angle;
 
         if (player.Length > 0)
         {
@@ -36,14 +40,13 @@ public class Enemies : MonoBehaviour
             Transform closestPlayer = GetClosestPlayer(player);
 
             // Check if the closest enemy is within lock-on range
-            if ((transform.position - closestPlayer.position).sqrMagnitude <= lockOnRange * lockOnRange) //tokolishi layer
+            if (gameObject.layer == 6 && (transform.position - closestPlayer.position).sqrMagnitude <= lockOnRange * lockOnRange) //moving enemies, layer
             {
                 Swarm();
             }
 
-            else if (gameObject.layer == 6 && (transform.position - closestPlayer.position).sqrMagnitude <= lockOnRange) //pinky pinky layer
+            else if (gameObject.layer == 7 && (transform.position - closestPlayer.position).sqrMagnitude <= lockOnRange) //shooting layer
             {
-
                 if (Time.time >= nextFireTime)
                 {
                     ShootPlayer();
@@ -68,7 +71,6 @@ public class Enemies : MonoBehaviour
                 closestEnemy = player.transform;
             }
         }
-
         return closestEnemy;
     }
 
@@ -80,7 +82,7 @@ public class Enemies : MonoBehaviour
     }
     private void Swarm()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
     }
 
     public void IncreaseSpeed(float increaseBy)

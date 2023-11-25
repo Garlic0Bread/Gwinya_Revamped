@@ -49,12 +49,12 @@ public class Menu_Ctrl : MonoBehaviour
         StartCoroutine(WaitBeforeLoading(sceneNumber));
     }
 
+
     IEnumerator WaitBeforeLoading(int levelNumber)
     {
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(levelNumber);
     }
-
 
     public void Placeholder()
     {

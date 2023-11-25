@@ -13,24 +13,29 @@ public class GameCurrency : MonoBehaviour
 
     [SerializeField] private Image expBar;
     [SerializeField] private TMP_Text numCoins;
-    [SerializeField] private Transform[] spawnPoints;
 
-    [SerializeField] private GameObject Store;
-    [SerializeField] private GameObject Inventory;
-    [SerializeField] private Button KirinButton;
     [SerializeField] private GameObject nextLevelPoint;
+    [SerializeField] private GameObject Store;
 
+    [SerializeField] private UI_InventoryPage inventoryUI;
     [SerializeField] private AudioSource expReachedMax;
+    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Button KirinButton;
+
+    public int inventorySize = 10;
 
     private void Start()
     {
-        nextLevelPoint.SetActive(false);
+        //nextLevelPoint.SetActive(false);
         KirinButton.interactable = false;
-        Inventory.SetActive(false);
+
+        inventoryUI.IntializeInventoryUI(inventorySize);
     }
 
     private void Update()
     {
+        UpdateExp();
+
         numCoins.text = Points.ToString();
         if(Points <= 0)
         {
@@ -38,11 +43,17 @@ public class GameCurrency : MonoBehaviour
         }
         // Ability_Spawner spawnItem = FindObjectOfType<Ability_Spawner>(); When player's Exp reaches 100 reward with choice of ability
         // spawnItem.Spawn();
-        UpdateExp();
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Inventory.SetActive(true);
+            if(inventoryUI.isActiveAndEnabled == false)
+            {
+                inventoryUI.Show();
+            }
+            else
+            {
+                inventoryUI.Hide();
+            }
         }
     }
    
@@ -54,7 +65,19 @@ public class GameCurrency : MonoBehaviour
             exp = 0;
         }
     }
-
+    public void IncreaseExp(float expToGive) //call when enemy dies
+    {
+        exp += expToGive;
+        expBar.fillAmount = exp / 100f;
+        if (exp >= 100)
+        {
+            Points += 1;
+            expReachedMax.Play();
+            Debug.Log(Points);
+        }
+        // Enemy increaseEnemySpeed = FindObjectOfType<Enemy>();
+        // increaseEnemySpeed.IncreaseSpeed(0.05f);
+    }
     public void EnableStore(bool storeAvailable = false)
     {
         if(storeAvailable == true)
@@ -65,21 +88,6 @@ public class GameCurrency : MonoBehaviour
         {
             Store.SetActive(false);
         }
-
-    }
-
-    public void IncreaseExp(float expToGive) //call when enemy dies
-    {
-        exp += expToGive;
-        expBar.fillAmount = exp / 100f;
-        if(exp >= 100)
-        {
-            Points += 1;
-            expReachedMax.Play();
-            Debug.Log(Points);
-        }
-        // Enemy increaseEnemySpeed = FindObjectOfType<Enemy>();
-        // increaseEnemySpeed.IncreaseSpeed(0.05f);
     }
 
     public void EnemiesLeft(int removePoint)
