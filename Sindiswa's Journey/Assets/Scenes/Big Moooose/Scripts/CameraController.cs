@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,11 +15,13 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+
         SetTargetPosition();
     }
 
     private void Update()
     {
+
         if (isMoving)
         {
             MoveTowardsTarget();
