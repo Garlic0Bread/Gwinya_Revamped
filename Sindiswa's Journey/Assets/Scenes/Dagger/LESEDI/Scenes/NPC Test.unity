@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 98475037}
   m_Layer: 7
   m_Name: NPCSprite
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -857,7 +857,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672924057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.34, y: 0.56, z: 0}
+  m_LocalPosition: {x: -0.01, y: 0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 746832181}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1225,7 +1225,7 @@ GameObject:
   - component: {fileID: 1019719736}
   m_Layer: 6
   m_Name: PlayerSprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1352,6 +1352,10 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2873542882312907251, guid: 95a888c50dd241b488302da7e3317527,
     type: 3}
   bulletforce: 20
+  spreadAngle: 15
+  fireRate: 0.1
+  numBinSpread: 3
+  currentShootmode: 0
 --- !u!61 &1019719736
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1390,7 +1394,7 @@ GameObject:
   - component: {fileID: 1090922337}
   m_Layer: 7
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1487,7 +1491,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159901102}
   m_LocalRotation: {x: -0, y: -1e-45, z: -0, w: 1}
-  m_LocalPosition: {x: 178, y: -309, z: -4550}
+  m_LocalPosition: {x: -422, y: -34, z: -4550}
   m_LocalScale: {x: 50.12953, y: 50.12953, z: 50.12953}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2137,6 +2141,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6136674714059362128, guid: a25a06eda114b884c88b79549e6355cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8372603813252606179, guid: a25a06eda114b884c88b79549e6355cb,
         type: 3}

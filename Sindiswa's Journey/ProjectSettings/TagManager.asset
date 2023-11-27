@@ -16,15 +16,17 @@ TagManager:
   - GameManager
   - StartPoint
   - Player1
+  - Projectile
+  - NPC
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
-  - 
+  - Moving Enemy
+  - Shooting Enemy
   - 
   - 
   - 

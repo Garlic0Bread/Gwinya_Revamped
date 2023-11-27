@@ -10,14 +10,15 @@ Material:
   m_Name: Shader Graphs_Water_RiverShader
   m_Shader: {fileID: -6465566751694194690, guid: d0226a6af75292745857a4107ccc9d97,
     type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _BUILTIN_SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 2999
   stringTagMap:
-    RenderType: Opaque
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -35,13 +36,13 @@ Material:
     - _BUILTIN_AlphaClip: 0
     - _BUILTIN_Blend: 0
     - _BUILTIN_CullMode: 0
-    - _BUILTIN_DstBlend: 0
+    - _BUILTIN_DstBlend: 10
     - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
-    - _BUILTIN_SrcBlend: 1
-    - _BUILTIN_Surface: 0
+    - _BUILTIN_QueueOffset: -1
+    - _BUILTIN_SrcBlend: 5
+    - _BUILTIN_Surface: 1
     - _BUILTIN_ZTest: 4
-    - _BUILTIN_ZWrite: 1
+    - _BUILTIN_ZWrite: 0
     - _BUILTIN_ZWriteControl: 0
     - _Second_noise_intensity: 2
     - _Strength: 1

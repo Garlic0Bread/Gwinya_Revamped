@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    public float bulletLife = 0f;
+    private float bulletLife = 0f;
+    [SerializeField] private float radius = 0; //radius for AOA's
     [SerializeField] private float followSpeed;
-    [SerializeField] private float radius = 0; 
     [SerializeField] private float bulletDamage;
 
-    [SerializeField] private string bulletTypeString;
-    [SerializeField] private LayerMask detectionLayer; // Set this in the Inspector to specify which layers the circle should detect
-
-    [SerializeField] private GameObject Kirin_Lightning;
-    [SerializeField] private GameObject shrapnel;
-    public bool kirinActive = false;
     private GameObject player;
+    private bool kirinActive = false;
+    [SerializeField] private GameObject shrapnel;
+    [SerializeField] private GameObject Kirin_Lightning;
+    [SerializeField] private bool enemyBullets = false;
+
+    [SerializeField] private string bulletTypeString;
+    [SerializeField] private LayerMask detectionLayer; // Set this in the Inspector to specify which layers the circle/AOA should detect
 
     private void OnDrawGizmos()
     {
@@ -26,6 +27,10 @@ public class Bullets : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        if (enemyBullets == true)
+        {
+            Physics2D.IgnoreLayerCollision(3, 7);
+        }
         bulletLife = 0f;
     }
     private void FixedUpdate()
@@ -33,28 +38,6 @@ public class Bullets : MonoBehaviour
         BulletType(bulletTypeString);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Health dealDamage = collision.GetComponent<Health>();
-
-        if (kirinActive == true && dealDamage != null)
-        {
-            Instantiate(Kirin_Lightning, collision.transform.position, Quaternion.identity);
-            gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-
-            kirinActive = false;
-            radius = 1.5f;
-        }
-        if (collision.gameObject.layer != 6 && dealDamage != null)
-        {
-            dealDamage.Damage(bulletDamage);
-            Instantiate(shrapnel, collision.transform.position, Quaternion.identity);
-            Destroy(gameObject, bulletLife); //add time to make a bullet that goes through enemies
-        }
-    }
-
-    // types of bullets
     public void BulletType(string bulletType)
     {
         if (bulletType == "Homing Bullet") //homing bullet
@@ -77,7 +60,7 @@ public class Bullets : MonoBehaviour
                 gameCurrency.Points -= 1;
             }
         }
-        else if(bulletType == "Kirin") //lightning AOE move
+        if (bulletType == "Kirin") //lightning AOE move
         {
             kirinActive = true;
 
@@ -88,5 +71,39 @@ public class Bullets : MonoBehaviour
             }
         }
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Health healthScript = collision.GetComponent<Health>();
+
+        if (kirinActive == true && healthScript != null)
+        {
+            Instantiate(Kirin_Lightning, collision.transform.position, Quaternion.identity);
+            gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+            kirinActive = false;
+            radius = 1.5f;
+        }
+        if (collision.gameObject.CompareTag("Enemy") && healthScript != null)
+        {
+            healthScript.Damage(bulletDamage);
+            Instantiate(shrapnel, collision.transform.position, Quaternion.identity);
+            Destroy(gameObject, bulletLife); //add time to make a bullet that goes through enemies
+        }
+        if(enemyBullets ==  true && collision.gameObject.CompareTag("Enemy") && healthScript != null)
+        {
+            healthScript.Damage(bulletDamage);
+            Instantiate(shrapnel, collision.transform.position, Quaternion.identity);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (enemyBullets == true && col.gameObject.CompareTag("Player"))
+        {
+            Health dealDamage = col.gameObject.GetComponent<Health>();
+            dealDamage.Damage(bulletDamage);
+            Destroy(gameObject, bulletLife);
+        }
+    }
 }  

@@ -7,8 +7,13 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("hit");
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Hit the object with the tag 'YourTag'");
 
-        Destroy(gameObject, 5f);
+            // Your additional logic goes here
+
+            Destroy(gameObject, 3f);
+        }
     }
 }
